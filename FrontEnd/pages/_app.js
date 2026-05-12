@@ -1,13 +1,16 @@
+import { Component } from "react";
 import "../styles/globals.css";
-// ApolloProvider: Funciona similar al provider de Context, Podemos envolver toda nuestra aplicación con el ApolloProvider
 import { ApolloProvider } from "@apollo/client";
 import client from "../config/apollo";
-import { Component } from "react";
+import PedidoState from "../context/pedidos/PedidoState";
 
 const myApp = ({ Component, pageProps }) => {
 	return (
 		<ApolloProvider client={client}>
-			<Component {...pageProps} /> {/* Renderiza el componente de la página actual */}
+			<PedidoState>
+				<Component {...pageProps} />{" "}
+				{/* Renderiza el componente de la página actual */}
+			</PedidoState>
 		</ApolloProvider>
 	);
 };
