@@ -3,5 +3,14 @@
 @tailwind utilities;
 
 body {
-  /* @apply select-none; */
+	/* @apply select-none; */
+}
+@layer base {
+}
+@layer components {
+	.header {
+		@apply text-2xl text-gray-800 font-light;
+	}
+}
+@layer utilities {
 }

@@ -1,5 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import Swal from "sweetalert2";
+import Router from "next/router";
+import { pid } from "process";
 
 const ELIMINAR_PRODUCTO = gql`
 	mutation eliminarProducto($id: ID!) {
@@ -58,6 +60,14 @@ const Producto = ({ producto }) => {
 			}
 		});
 	};
+
+	const editarProducto = (id) => {
+		Router.push({
+			pathname: "/editarproducto/[id]",
+			query: { id },
+		});
+	};
+
 	return (
 		<tr>
 			<td className="border px-4 py-2">{nombre}</td>
@@ -67,7 +77,7 @@ const Producto = ({ producto }) => {
 				{/* Usaremos heroicons para el icono de los botones */}
 				<button
 					className="flex items-center justify-center gap-2 bg-blue-800 w-full sm:w-auto font-bold uppercase  text-xs text-white rounded py-2 px-5 shadow-md hover:bg-blue-700 hover:cursor-pointer "
-					onClick={() => editarCliente(cliente.id)}
+					onClick={() => editarProducto(id)}
 				>
 					Editar
 					<svg
