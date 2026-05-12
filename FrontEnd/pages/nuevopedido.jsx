@@ -1,46 +1,29 @@
 import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import Select from "react-select";
+import AsignarCliente from "../components/pedidos/AsignarCliente";
+import { gql, useQuery } from "@apollo/client";
 
-// const options = [
-// 	{ value: "chocolate", label: "Chocolate" },
-// 	{ value: "strawberry", label: "Strawberry" },
-// 	{ value: "vanilla", label: "Vanilla" },
-// ];
-const options = [
-	{ id: "chocolate", nombre: "Chocolate" },
-	{ id: "strawberry", nombre: "Strawberry" },
-	{ id: "vanilla", nombre: "Vanilla" },
-];
+const OBTENER_CLIENTES_USUARIOS = gql`
+  query obtenerClientesVendedor {
+    obtenerClientesVendedor {
+      id
+      nombre
+      apellido
+      empresa
+      email
+    }
+  }
+`;
 
 const NuevoPedido = () => {
-	const [sabores, setSabores] = useState([]);
-
-	useEffect(() => {
-		console.log(sabores);
-	}, [sabores]);
-
-	const seleccionaSabor = (sabor) => {
-		setSabores([...sabores, sabor]);
-	};
-
+  const { data, loading } = useQuery(OBTENER_CLIENTES_USUARIOS);
+  if (loading) return "Cargando...";
+  if (!data.obtenerClientesVendedor) return null;
 	return (
 		<Layout>
 			<h1 className="text-2xl text-gray-800 font-light">Crear Nuevo Pedido</h1>
-			{/* Formulario con el uso de React Select */}
-
-			<Select
-				options={options} // Solo recibe value y label
-				isMulti
-				onChange={(options) => seleccionaSabor(options)}
-				className="mt-5"
-				// ⬇ Si quiero mostrar valores diferentes a value
-				getOptionValue={(options) => options.id}
-				// ⬇ Si quiero mostrar valores diferentes a label
-				getOptionLabel={(options) => options.nombre}
-				placeholder="Selecciona sabor"
-				noOptionsMessage={() => "No hay resultados"}
-			/>
+			<AsignarCliente />
 		</Layout>
 	);
 };
