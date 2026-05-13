@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Select from "react-select";
+// import Select from "react-select";
 
-// const options = [
-// 	{ value: "chocolate", label: "Chocolate" },
-// 	{ value: "strawberry", label: "Strawberry" },
-// 	{ value: "vanilla", label: "Vanilla" },
-// ];
+import dynamic from "next/dynamic";
+
+const Select = dynamic(() => import("react-select"), {
+  ssr: false,
+});
+
 const clientes = [
 	{ id: 1, nombre: "Jhonatan" },
 	{ id: 2, nombre: "Mariana" },
