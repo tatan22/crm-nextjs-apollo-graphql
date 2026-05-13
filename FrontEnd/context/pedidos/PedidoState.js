@@ -10,18 +10,32 @@ import {
 const PedidoState = ({ children }) => {
 	//State de Pedidos
 	const initialState = {
-		cliente: [],
+		cliente: {},
 		productos: [],
 		total: 0,
 	};
 	const [state, dispatch] = useReducer(PedidoReducer, initialState);
+	//Modifica el CLiente
 
-	const holaMundo = () => {
-		console.log("hola mundo en useReducer");
+	const agregarCliente = cliente => {
+		dispatch({
+			type: SELECCIONAR_CLIENTE,//action
+			payload: cliente,//payload- Lo que se envia
+		});
 	};
 
+	const agregarProducto = producto => {
+		dispatch({
+			type: SELECCIONAR_PRODUCTO,
+			payload: producto,
+		});
+	};
+		
+
 	return (
-		<PedidoContext.Provider value={{ holaMundo }}>
+		<PedidoContext.Provider value={{
+			agregarCliente
+		}}>
 			{children}
 		</PedidoContext.Provider>
 	);
