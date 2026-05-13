@@ -26,3 +26,7 @@ npm install react-select
   - Single: Seleccionar una sola opción
   - Multi: Seleccionar varias opciones
   - Creatable: Permite crear nuevas opciones
+
+## Sección 20: 119. Configurando useReducer para manejar el state de pedidos
+
+En este caso usaremos un useReducer en ves de Redux para manejar el state de los pedidos, junto a contextApi.
