@@ -17,25 +17,28 @@ const PedidoState = ({ children }) => {
 	const [state, dispatch] = useReducer(PedidoReducer, initialState);
 	//Modifica el CLiente
 
-	const agregarCliente = cliente => {
+	const agregarCliente = (cliente) => {
 		dispatch({
-			type: SELECCIONAR_CLIENTE,//action
-			payload: cliente,//payload- Lo que se envia
+			type: SELECCIONAR_CLIENTE, //action
+			payload: cliente, //payload- Lo que se envía
 		});
 	};
 
-	const agregarProducto = producto => {
+	// Modifica los productos
+	const agregarProducto = (productos) => {
 		dispatch({
 			type: SELECCIONAR_PRODUCTO,
-			payload: producto,
+			payload: productos,
 		});
 	};
-		
 
 	return (
-		<PedidoContext.Provider value={{
-			agregarCliente
-		}}>
+		<PedidoContext.Provider
+			value={{
+				agregarCliente,
+				agregarProducto,
+			}}
+		>
 			{children}
 		</PedidoContext.Provider>
 	);
