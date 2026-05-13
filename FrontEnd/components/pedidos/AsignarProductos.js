@@ -57,7 +57,7 @@ const AsignarProductos = () => {
 				className="mt-3"
 				getOptionValue={(options) => options.id}
 				getOptionLabel={(options) =>
-					`${options.nombre} - ${options.existencia} / Und Disponibles --> $${options.precio}`
+					`${options.nombre} - ${options.existencia} / Und Disponibles`
 				}
 				placeholder="Busque o seleccione un producto"
 				noOptionsMessage={() => "No hay resultados"}
