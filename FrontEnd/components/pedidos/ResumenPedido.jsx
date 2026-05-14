@@ -4,6 +4,7 @@ import ProductoResumen from "../ProductoResumen";
 const ResumenPedido = () => {
 	const pedidoContext = useContext(PedidoContext);
 	const { productos } = pedidoContext;
+	console.log('ResumenPedido',productos);
 	return (
 		// Context
 
@@ -13,9 +14,9 @@ const ResumenPedido = () => {
 			</p>
 			{productos.length > 0 ? (
 				<>
-				{productos.map((producto) => (
-					<ProductoResumen key={producto.id} producto={producto} />
-				))}
+					{productos.map((producto) => (
+						<ProductoResumen key={producto.id} producto={producto} />
+					))}
 				</>
 			) : (
 				<p className="mt-5  text-gray-700 p-2 text-sm ">

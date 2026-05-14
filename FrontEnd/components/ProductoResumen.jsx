@@ -1,15 +1,17 @@
 import { useContext, useState, useEffect } from "react";
 import PedidoContext from "../context/pedidos/PedidoContext";
 const ProductoResumen = ({ producto }) => {
-	const [cantidad, setCantidad] = useState(0);
-
+	
 	const pedidoContext = useContext(PedidoContext);
-	const { cantidadProducto } = pedidoContext;
+	const { cantidadProducto, actualizarTotal } = pedidoContext;
+	const [cantidad, setCantidad] = useState(0);
 	
 	useEffect(() => {
 		actualizarCantidad();
+		actualizarTotal();
 	}, [cantidad]);
 	
+
 	const actualizarCantidad = () => {
 		const nuevoProducto = { ...producto, cantidad };
 		cantidadProducto(nuevoProducto);
@@ -26,7 +28,7 @@ const ProductoResumen = ({ producto }) => {
 				type="number"
 				placeholder="Cantidad"
 				className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-				onChange={(e) => setCantidad(parseInt(e.target.value))}
+				onChange={(e) => setCantidad(parseInt(e.target.value === "" ? 0 : Math.max(0, parseInt(e.target.value))))}
 				value={cantidad}
 			/>
 		</div>

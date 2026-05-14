@@ -1,8 +1,9 @@
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 import { gql, useQuery } from "@apollo/client";
 import PedidoContext from "../../context/pedidos/PedidoContext";
 
 import dynamic from "next/dynamic";
+
 const Select = dynamic(() => import("react-select"), {
 	ssr: false,
 });
@@ -19,30 +20,25 @@ const OBTENER_PRODUCTOS = gql`
 `;
 
 const AsignarProductos = () => {
-	// State del componente
-	const [productos, setProductos] = useState([]);
 
-  // Context de pedidos
-  const pedidoContext = useContext(PedidoContext);
-  const { agregarProducto } = pedidoContext;
+	// Context
+	const pedidoContext = useContext(PedidoContext);
+	const { agregarProducto } = pedidoContext;
 
-	// Consulta a la base de datos
-	const { data, loading, error } = useQuery(OBTENER_PRODUCTOS);
+	// Query
+	const { data, loading } = useQuery(OBTENER_PRODUCTOS);
 
-	// Prevenir render antes de tener datos
-	useEffect(() => {
-		//todo: Funcion para pasar a pedidostate
-    agregarProducto(productos);
-	}, [productos]);
-
+	// Seleccionar productos
 	const seleccionarProductos = (productos) => {
-    setProductos(productos);
+		agregarProducto(productos);
 	};
 
-	// prevenir render antes de tener datos
+	// Loading
 	if (loading) return null;
 
+	// Validar data
 	if (!data.obtenerProductos) return null;
+
 	const { obtenerProductos } = data;
 
 	return (
@@ -50,6 +46,7 @@ const AsignarProductos = () => {
 			<p className="mt-10 my-2 bg-white border-l-4 border-gray-800 text-gray-700 p-2 text-sm font-bold">
 				2. Selecciona o Busca los Productos
 			</p>
+
 			<Select
 				isMulti
 				options={obtenerProductos}
