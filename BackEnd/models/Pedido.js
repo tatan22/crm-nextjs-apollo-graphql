@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const ESTADOS_PEDIDO = ["PENDIENTE", "COMPLETADO", "CANCELADO"];
 
-const ProductoSchema = mongoose.Schema({
+const PedidoSchema = mongoose.Schema({
 	pedido: {
 		type: Array,
 		required: true,
@@ -32,4 +32,4 @@ const ProductoSchema = mongoose.Schema({
     default: Date.now(),
   },
 });
-module.exports = mongoose.model("Pedido", ProductoSchema);
+module.exports = mongoose.model("Pedido", PedidoSchema);

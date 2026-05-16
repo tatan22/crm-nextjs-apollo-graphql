@@ -71,7 +71,7 @@ const typeDefs = gql`
 		id: ID
 		pedido: [PedidoGrupo]
 		total: Float
-		cliente: ID
+		cliente: Cliente # ya no retorna un ID
 		vendedor: ID
 		estado: String
 		creado: String

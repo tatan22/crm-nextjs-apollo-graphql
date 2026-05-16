@@ -12,6 +12,29 @@ const NUEVO_PEDIDO = gql`
 	mutation nuevoPedido($input: PedidoInput) {
 		nuevoPedido(input: $input) {
 			id
+			pedido {
+				id
+				cantidad
+				nombre
+			}
+			cliente {
+				id
+				nombre
+				apellido
+				email
+				telefono
+			}
+			vendedor
+			total
+			estado
+		}
+	}
+`;
+
+const OBTENER_PEDIDOS = gql`
+	query obtenerPedidosVendedor {
+		obtenerPedidosVendedor {
+			id
 		}
 	}
 `;
@@ -27,7 +50,29 @@ const NuevoPedido = () => {
 	const { cliente, productos, total } = pedidoContext;
 
 	// Mutation
-	const [nuevoPedido] = useMutation(NUEVO_PEDIDO);
+	const [nuevoPedido] = useMutation(NUEVO_PEDIDO, {
+		update(cache, { data: { nuevoPedido } }) {
+			try {
+				const data = cache.readQuery({
+					query: OBTENER_PEDIDOS,
+				});
+
+				if (data?.obtenerPedidosVendedor) {
+					cache.writeQuery({
+						query: OBTENER_PEDIDOS,
+						data: {
+							obtenerPedidosVendedor: [
+								...data.obtenerPedidosVendedor,
+								nuevoPedido,
+							],
+						},
+					});
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		},
+	});
 
 	//Validar Pedido
 	const validarPedido = () => {
@@ -40,7 +85,6 @@ const NuevoPedido = () => {
 	};
 	const router = useRouter();
 	const crearNuevoPedido = async () => {
-	
 		// Remover datos innecesarios de pedidos
 		// const productos = pedidoContext.productos.map(({ __typename, nombre, precio, existencia, ...producto }) => producto);
 		// const productos = pedidoContext.productos.map(({ id, cantidad}) => ({ id, cantidad}));

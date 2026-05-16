@@ -105,7 +105,9 @@ const resolvers = {
 		// obtenerPedidosVendedor: async (_, __, ctx) => {
 		obtenerPedidosVendedor: async (_, {}, ctx) => {
 			try {
-				const pedidos = await Pedido.find({ vendedor: ctx.usuario.id });
+				const pedidos = await Pedido.find({
+					vendedor: ctx.usuario.id,
+				}).populate("cliente");
 				return pedidos;
 			} catch (error) {
 				console.log(error);
@@ -397,8 +399,19 @@ const resolvers = {
 			nuevoPedido.cliente = clienteId;
 
 			try {
-				const resultado = await nuevoPedido.save();
-				return resultado;
+				// const resultado = await nuevoPedido.save();
+				// return JSON.parse(JSON.stringify(resultado));
+				// return resultado;
+				const pedido = await nuevoPedido.save();
+
+				return {
+					id: pedido._id.toString(),
+					total: pedido.total,
+					estado: pedido.estado,
+					cliente: pedido.cliente.toString(),
+					vendedor: pedido.vendedor.toString(),
+					pedido: pedido.pedido,
+				};
 			} catch (error) {
 				console.log("ERROR REAL:", error);
 				throw new Error(error.message);
