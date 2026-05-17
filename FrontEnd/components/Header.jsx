@@ -33,9 +33,9 @@ const Header = () => {
 	};
 
 	return (
-		<header className="flex justify-between mb-6 align-items-center">
-			<p className="text-xl mr-2">
-				<span className="font-bold">Hola:</span>{" "}
+		<header className="sm:flex md:justify-between mb-6 align-items-center">
+			<p className="text-xl mr-2 mb-5 lg:mb-0">
+				<span className="font-bold ">Hola:</span>{" "}
 				<span className="font-normal">
 					{name || "User"} {lastName || "User"}
 				</span>

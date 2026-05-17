@@ -130,6 +130,7 @@ const typeDefs = gql`
 		mejoresVendedores: [TopVendedores]
 		buscarProducto(texto: String!): [Producto]
 	}
+	
 
 	##-------------------- Mutations
 
