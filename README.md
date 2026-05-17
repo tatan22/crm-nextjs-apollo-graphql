@@ -46,3 +46,11 @@ npm install recharts
 - stopPolling: Detener las consultas en tiempo real
 
 Esta dos funcionalidades la usaremos para las gráficas de estadísticas del mejor vendedor y el mejor cliente.
+
+## Deployment en Heroku para el Backend
+
+Debemos usar e instalar el cli de Heroku.
+
+```bash
+npm install -g heroku
+```
